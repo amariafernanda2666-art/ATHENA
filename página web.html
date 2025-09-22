@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Athena - Servicios Remotos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      color: #2f3640;
+      display: flex;
+    }
+    /* Barra lateral */
+    aside {
+      width: 220px;
+      background: #1e2d46; /* Azul más claro */
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    aside h1 {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    aside nav a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 1rem 0;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    aside nav a:hover {
+      color: #00a8ff;
+    }
+    /* Contenido principal */
+    main {
+      margin-left: 220px;
+      padding: 2rem;
+      flex: 1;
+    }
+    section {
+      display: none;
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    section.active {
+      display: block;
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #1b263b;
+    }
+    .services button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: #1e2d46;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .services button:hover {
+      background: #3a4d70;
+    }
+    .chat-box {
+      display: none;
+      background: #f5f6fa;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    .chat-box input, .chat-box button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .reviews textarea {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .reviews button {
+      margin-top: 1rem;
+      background: #1e2d46;
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .reviews button:hover {
+      background: #3a4d70;
+    }
+    .review-list {
+      margin-top: 2rem;
+    }
+    .review-item {
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 0;
+    }
+    .stars {
+      margin: 0.5rem 0;
+      color: #f39c12;
+    }
+    .contact-links a {
+      display: block;
+      color: #1b263b;
+      margin: 0.5rem 0;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.6rem;
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+    .contact-links a:hover {
+      background: #dcdde1;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <h1>Athena</h1>
+    <nav>
+      <a href="#" onclick="mostrarSeccion('inicio')">Inicio</a>
+      <a href="#" onclick="mostrarSeccion('servicios')">Servicios</a>
+      <a href="#" onclick="mostrarSeccion('nosotros')">Nosotros</a>
+      <a href="#" onclick="mostrarSeccion('reseñas')">Reseñas</a>
+      <a href="#" onclick="mostrarSeccion('contacto')">Contacto</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="inicio" class="active">
+      <h2>Bienvenido a Athena</h2>
+      <p>Ofrecemos soluciones de soporte remoto con calidad, rapidez y confianza. Usa Anydesk con nosotros y resuelve tus problemas técnicos sin salir de casa.</p>
+    </section>
+
+    <section id="servicios">
+      <h2>Elige tu Servicio</h2>
+      <div class="services">
+        <button onclick="openChat('Mantenimiento remoto')">Mantenimiento remoto</button>
+        <button onclick="openChat('Asesoría por reunión virtual')">Asesoría por reunión virtual</button>
+        <button onclick="openChat('Informes')">Informes</button>
+      </div>
+      <div class="chat-box" id="chatBox">
+        <p id="selectedService"></p>
+        <label for="fecha">Indique la fecha para el servicio:</label>
+        <input type="date" id="fecha">
+        <button onclick="enviarSolicitud()">Enviar solicitud</button>
+        <p id="mensajeConfirmacion"></p>
+      </div>
+    </section>
+
+    <section id="nosotros">
+      <h2>Sobre Nosotros</h2>
+      <p><strong>Visión:</strong> Ser líderes en brindar soporte tecnológico remoto accesible y confiable, utilizando herramientas modernas como Anydesk para mejorar la experiencia de nuestros clientes.</p>
+      <p><strong>Misión:</strong> Brindar soluciones técnicas de calidad a través de servicios remotos seguros, rápidos y efectivos, adaptándonos a las necesidades de cada cliente.</p>
+    </section>
+
+    <section id="reseñas" class="reviews">
+      <h2>Deja tu Reseña</h2>
+      <label>Calificación (1 a 5 estrellas):</label>
+      <select id="rating">
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+      </select>
+      <textarea id="reviewText" placeholder="Escribe tu reseña aquí..."></textarea>
+      <button onclick="agregarReseña()">Enviar Reseña</button>
+      <div class="review-list" id="reviewList"></div>
+    </section>
+
+    <section id="contacto">
+      <h2>Contáctanos</h2>
+      <div class="contact-links">
+        <a href="https://wa.me/51987887656" target="_blank">WhatsApp: 987887656</a>
+        <a href="https://facebook.com/Athenaofficial" target="_blank">Facebook: @Athenaofficial</a>
+        <a href="mailto:athenaofficial@gmail.com">Gmail: athenaofficial@gmail.com</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function mostrarSeccion(id) {
+      const secciones = document.querySelectorAll('main section');
+      secciones.forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function openChat(servicio) {
+      document.getElementById('chatBox').style.display = 'block';
+      document.getElementById('selectedService').innerText = "Has seleccionado: " + servicio;
+    }
+
+    function enviarSolicitud() {
+      const fecha = document.getElementById('fecha').value;
+      if (fecha) {
+        document.getElementById('mensajeConfirmacion').innerText = "✅ Tu solicitud ha sido enviada para el " + fecha;
+      } else {
+        document.getElementById('mensajeConfirmacion').innerText = "⚠️ Por favor selecciona una fecha.";
+      }
+    }
+
+    function agregarReseña() {
+      const texto = document.getElementById('reviewText').value;
+      const rating = document.getElementById('rating').value;
+      if (texto.trim() !== "") {
+        const reviewList = document.getElementById('reviewList');
+        const reviewItem = document.createElement('div');
+        reviewItem.classList.add('review-item');
+        reviewItem.innerHTML = `<div class="stars">${'⭐'.repeat(rating)}</div><p>${texto}</p>`;
+        reviewList.prepend(reviewItem);
+        document.getElementById('reviewText').value = "";
+        document.getElementById('rating').value = "5";
+      }
+    }
+  </script>
+</body>
+</html>
